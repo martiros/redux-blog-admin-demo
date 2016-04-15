@@ -10,7 +10,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.js$|\.jsx$/,
         exclude: /node_modules/,
         loader: 'babel',
         query: {
@@ -18,6 +18,9 @@ module.exports = {
         },
       },
     ],
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
   },
   devServer: {
     contentBase: `${__dirname}/public`,
