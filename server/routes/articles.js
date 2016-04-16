@@ -1,16 +1,20 @@
-const express = require('express');
+import express from 'express';
+import { Article } from '../models';
 
 /*eslint-disable*/
 const router = express.Router();
 /*eslint-enable*/
 
-/* GET users listing. */
-router.get('/articles', (req, res) => {
-  res.json({
-    item: {
-      data: 'Some user',
-    },
-  });
+/* Get articles. */
+router.get('/articles', (req, res, next) => {
+  Article
+    .findAll()
+    .then(articles => {
+      res.json({
+        items: articles,
+      });
+    })
+    .catch(next);
 });
 
-module.exports = router;
+export default router;
