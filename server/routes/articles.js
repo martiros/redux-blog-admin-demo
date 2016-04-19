@@ -59,4 +59,33 @@ router.post('/articles', (req, res, next) => {
     .catch(next);
 });
 
+/* Update article. */
+router.put('/articles/:id', (req, res, next) => {
+  const articleId = req.params.id;
+  const validationResult = Joi.validate(req.body, articleSchema);
+
+  if (validationResult.error) {
+    return res.status(httpStatus.UNPROCESSABLE_ENTITY).json(validationFailed(validationResult));
+  }
+
+  return Article
+    .findById(articleId)
+    .then(article => {
+      if (!article) {
+        return res.status(httpStatus.NOT_FOUND).json({
+          status: 'NOT_FOUND',
+        });
+      }
+
+      return article
+        .update(validationResult.value)
+        .then(() => {
+          res.json({
+            item: article,
+          });
+        });
+    })
+    .catch(next);
+});
+
 export default router;
