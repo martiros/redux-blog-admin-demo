@@ -3,6 +3,7 @@ import chai, { expect } from 'chai';
 import httpStatus from 'http-status';
 import responseAssertion from './helpers/responseAssertion';
 import Joi from 'joi';
+import faker from 'faker';
 
 chai.use(responseAssertion);
 
@@ -38,6 +39,39 @@ describe('Article endpoints', () => {
           }
 
           expect(res.body.items[0]).to.be.an.item(articleSchema);
+          return done();
+        })
+    );
+  });
+
+  describe('POST /api/articles', () => {
+    it('fails validation for invalid article data',
+      done => request
+        .post('/api/articles')
+        .send({
+          title: 'Test title',
+          content: 'Too small title',
+        })
+        .expect('Content-type', /json/)
+        .expect(httpStatus.UNPROCESSABLE_ENTITY)
+        .end(done)
+    );
+
+    it('creates new article',
+      done => request
+        .post('/api/articles')
+        .send({
+          title: faker.lorem.sentence(),
+          content: faker.lorem.sentences(10),
+        })
+        .expect('Content-type', /json/)
+        .expect(httpStatus.CREATED)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+
+          expect(res.body.item).to.be.an.item(articleSchema);
           return done();
         })
     );
