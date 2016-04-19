@@ -44,6 +44,7 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "http-status": "0.2.1",
+    "joi": "8.0.5",
     "morgan": "~1.6.1",
     "react": "0.14.7",
     "react-bootstrap": "0.28.3",
