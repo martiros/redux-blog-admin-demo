@@ -4,8 +4,21 @@ import httpStatus from 'http-status';
 import responseAssertion from './helpers/responseAssertion';
 import Joi from 'joi';
 import faker from 'faker';
+import { Article } from '../models';
 
 chai.use(responseAssertion);
+
+function getRandomArticle() {
+  return Article.count().then((count) => Article.findOne({
+    offset: Math.floor((Math.random() * count) + 0),
+  }));
+}
+
+function getNonExistentArticleId() {
+  return Article.findOne({
+    order: 'id DESC',
+  }).then((lastArticle) => lastArticle.get('id') + 1);
+}
 
 describe('Article endpoints', () => {
   let server;
@@ -75,5 +88,52 @@ describe('Article endpoints', () => {
           return done();
         })
     );
+  });
+
+  describe('PUT /api/articles/:id', () => {
+    it('fails validation for invalid article data', (done) => {
+      getRandomArticle()
+        .then(randomArticle => {
+          request
+            .put(`/api/articles/${randomArticle.get('id')}`)
+            .send({
+              title: 'Test title',
+              content: 'Too small title',
+            })
+            .expect('Content-type', /json/)
+            .expect(httpStatus.UNPROCESSABLE_ENTITY)
+            .end(done);
+        }).catch(done);
+    });
+
+    it('updates article successfully', (done) => {
+      getRandomArticle()
+        .then(randomArticle => {
+          request
+            .put(`/api/articles/${randomArticle.get('id')}`)
+            .send({
+              title: faker.lorem.sentence(),
+              content: faker.lorem.sentences(10),
+            })
+            .expect('Content-type', /json/)
+            .expect(httpStatus.OK)
+            .end(done);
+        }).catch(done);
+    });
+
+    it('returns not found error for invalid article', (done) => {
+      getNonExistentArticleId()
+        .then(invalidArticleId => {
+          request
+            .put(`/api/articles/${invalidArticleId}`)
+            .send({
+              title: faker.lorem.sentence(),
+              content: faker.lorem.sentences(10),
+            })
+            .expect('Content-type', /json/)
+            .expect(httpStatus.NOT_FOUND)
+            .end(done);
+        }).catch(done);
+    });
   });
 });
