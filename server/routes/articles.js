@@ -88,4 +88,26 @@ router.put('/articles/:id', (req, res, next) => {
     .catch(next);
 });
 
+/* Update article. */
+router.delete('/articles/:id', (req, res, next) => {
+  const articleId = req.params.id;
+
+  return Article
+    .findById(articleId)
+    .then(article => {
+      if (!article) {
+        return res.status(httpStatus.NOT_FOUND).json({
+          status: 'NOT_FOUND',
+        });
+      }
+
+      return article
+        .destroy()
+        .then(() => {
+          res.status(httpStatus.NO_CONTENT).json(null);
+        });
+    })
+    .catch(next);
+});
+
 export default router;
