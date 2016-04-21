@@ -136,4 +136,27 @@ describe('Article endpoints', () => {
         }).catch(done);
     });
   });
+
+  describe('DELETE /api/articles/:id', () => {
+    it('deletes article successfully', (done) => {
+      getRandomArticle()
+        .then(randomArticle => {
+          request
+            .delete(`/api/articles/${randomArticle.get('id')}`)
+            .expect(httpStatus.NO_CONTENT)
+            .end(done);
+        }).catch(done);
+    });
+
+    it('returns not found error for invalid article', (done) => {
+      getNonExistentArticleId()
+        .then(invalidArticleId => {
+          request
+            .delete(`/api/articles/${invalidArticleId}`)
+            .expect('Content-type', /json/)
+            .expect(httpStatus.NOT_FOUND)
+            .end(done);
+        }).catch(done);
+    });
+  });
 });
