@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./",
+    "lint": "eslint ./ --ext=js,jsx",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-dev": "webpack-dev-server --progress",
     "start-dev-api": "nodemon --exec babel-node server/bin/www",
