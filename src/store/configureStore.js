@@ -10,4 +10,4 @@ export default function configureStore(initialState) {
     applyMiddleware(thunkMiddleware, createLogger())
   );
   return store;
-};
+}
