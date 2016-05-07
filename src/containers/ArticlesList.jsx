@@ -73,3 +73,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { fetchArticlesIfNeeded })(ArticlesList);
+
+export { ArticlesList };

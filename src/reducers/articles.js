@@ -1,4 +1,8 @@
-import { REQUEST_ARTICLES, REQUEST_ARTICLES_SUCCESS } from './../constants/actionTypes';
+import {
+  REQUEST_ARTICLES,
+  REQUEST_ARTICLES_SUCCESS,
+  CREATE_ARTICLE_SUCCESS,
+} from './../constants/actionTypes';
 
 const defaultState = {
   loading: false,
@@ -25,6 +29,9 @@ export default function articlesReducer(state = defaultState, action) {
         requestErrors: [],
         items: action.articles,
       };
+
+    case CREATE_ARTICLE_SUCCESS:
+      return { ...defaultState };
 
     default:
       return state;
