@@ -86,7 +86,7 @@ export function fetchArticlesIfNeeded() {
   };
 }
 
-function addArticleSucceed() {
+export function addArticleSucceed() {
   return {
     type: CREATE_ARTICLE_SUCCESS,
   };
