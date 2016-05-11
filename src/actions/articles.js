@@ -10,21 +10,28 @@ import Schemas from '../schemas';
 import { UNPROCESSABLE_ENTITY } from 'http-status';
 import { push } from 'react-router-redux';
 
-
 function processValidationErrors(result, formData) {
-  // @TODO: Change with higher order functions!
-  const formErrors = {};
-  for (let i = 0; i < result.errors.length; i++) {
-    const error = result.errors[i];
-    if (formData[error.path]) {
-      formErrors[error.path] = error.message;
-    } else if (formErrors._error) {
-      formErrors._error += `, ${error.message}`;
-    } else {
-      formErrors._error = error.message;
-    }
-  }
-  return Promise.reject(formErrors);
+  return Promise.reject(
+    result.errors.reduce((formErrors, error) => {
+      let key;
+      let message;
+      if (formData[error.path]) {
+        key = error.path;
+        message = error.message;
+      } else if (formErrors._error) {
+        key = '_error';
+        message = `${formErrors._error}, ${error.message}`;
+      } else {
+        key = '_error';
+        message = error.message;
+      }
+
+      return {
+        ...formErrors,
+        [key]: message,
+      };
+    }, {})
+  );
 }
 
 function handleRequestFail(err, formData) {
