@@ -1,6 +1,10 @@
 import { expect } from 'chai';
 import articlesReducer from './../../reducers/articles';
-import { REQUEST_ARTICLES, REQUEST_ARTICLES_SUCCESS } from './../../constants/actionTypes';
+import {
+  REQUEST_ARTICLES,
+  REQUEST_ARTICLES_SUCCESS,
+  CREATE_ARTICLE_SUCCESS,
+} from './../../constants/actionTypes';
 
 describe('reducers/articles', () => {
   it('should return the initial state', () => {
@@ -53,6 +57,28 @@ describe('reducers/articles', () => {
       items: [1, 2, 12, 3],
       loading: false,
       requested: true,
+      requestErrors: [],
+    };
+
+    expect(articlesReducer(state, action)).to.be.deep.equal(expectedState);
+  });
+
+  it('resets articles list view data once new article created', () => {
+    const state = {
+      loading: false,
+      requested: true,
+      requestErrors: [],
+      items: [1, 4, 56],
+    };
+
+    const action = {
+      type: CREATE_ARTICLE_SUCCESS,
+    };
+
+    const expectedState = {
+      items: [],
+      loading: false,
+      requested: false,
       requestErrors: [],
     };
 
