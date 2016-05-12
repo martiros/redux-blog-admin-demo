@@ -3,6 +3,7 @@ import {
   REQUEST_ARTICLES,
   REQUEST_ARTICLES_SUCCESS,
   CREATE_ARTICLE_SUCCESS,
+  DELETE_ARTICLE,
 } from '../constants/actionTypes';
 import { normalize } from 'normalizr';
 import { receiveEntities } from './entities';
@@ -125,4 +126,17 @@ export function updateArticle(id, formData) {
         dispatch(receiveEntities(data.entities));
       })
       .catch(err => handleRequestFail(err, formData));
+}
+
+export function deleteArticle(id) {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_ARTICLE,
+      id,
+    });
+
+    return http
+      .delete(`/api/articles/${id}`)
+      .catch(err => handleRequestFail(err));
+  };
 }

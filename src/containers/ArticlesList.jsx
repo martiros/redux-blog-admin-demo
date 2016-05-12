@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchArticlesIfNeeded } from '../actions/articles';
+import { fetchArticlesIfNeeded, deleteArticle } from '../actions/articles';
 import { Link } from 'react-router';
 import Spinner from '../components/widgets/Spinner';
+import ArticlesListItem from '../components/ArticlesListItem';
 
 class ArticlesList extends Component {
-
   componentWillMount() {
     this.props.fetchArticlesIfNeeded();
   }
@@ -32,9 +32,11 @@ class ArticlesList extends Component {
 
           <div>
             {!loading && items.map(article => (
-              <li className="list-group-item" key={article.id} >
-                <Link to={`/articles/${article.id}`} >{article.title}</Link>
-              </li>
+              <ArticlesListItem
+                key={article.id}
+                article={article}
+                onDelete={this.props.deleteArticle}
+              />
             ))}
 
             {loading &&
@@ -49,6 +51,7 @@ class ArticlesList extends Component {
 
 ArticlesList.propTypes = {
   fetchArticlesIfNeeded: PropTypes.func.isRequired,
+  deleteArticle: PropTypes.func.isRequired,
   articles: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     requested: PropTypes.bool.isRequired,
@@ -72,6 +75,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchArticlesIfNeeded })(ArticlesList);
+export default connect(mapStateToProps, { fetchArticlesIfNeeded, deleteArticle })(ArticlesList);
 
 export { ArticlesList };

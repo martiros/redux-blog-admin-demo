@@ -7,6 +7,7 @@ import { ArticlesList } from './../../containers/ArticlesList';
 describe('components/ArticlesList', () => {
   const defaultProps = {
     fetchArticlesIfNeeded: () => {},
+    deleteArticle: () => {},
     articles: {
       loading: false,
       requested: true,
@@ -37,7 +38,7 @@ describe('components/ArticlesList', () => {
 
   it('renders articles list', () => {
     const wrapper = shallow(<ArticlesList {...defaultProps} />);
-    expect(wrapper.find('li')).to.have.length(defaultProps.articles.items.length);
+    expect(wrapper.find('ArticlesListItem')).to.have.length(defaultProps.articles.items.length);
   });
 
   it('renders spinner when articles list is loading', () => {

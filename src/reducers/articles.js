@@ -2,6 +2,7 @@ import {
   REQUEST_ARTICLES,
   REQUEST_ARTICLES_SUCCESS,
   CREATE_ARTICLE_SUCCESS,
+  DELETE_ARTICLE,
 } from './../constants/actionTypes';
 
 const defaultState = {
@@ -28,6 +29,12 @@ export default function articlesReducer(state = defaultState, action) {
         requested: true,
         requestErrors: [],
         items: action.articles,
+      };
+
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        items: state.items.filter((articleId) => articleId !== action.id),
       };
 
     case CREATE_ARTICLE_SUCCESS:
