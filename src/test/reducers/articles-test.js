@@ -4,6 +4,7 @@ import {
   REQUEST_ARTICLES,
   REQUEST_ARTICLES_SUCCESS,
   CREATE_ARTICLE_SUCCESS,
+  DELETE_ARTICLE,
 } from './../../constants/actionTypes';
 
 describe('reducers/articles', () => {
@@ -79,6 +80,29 @@ describe('reducers/articles', () => {
       items: [],
       loading: false,
       requested: false,
+      requestErrors: [],
+    };
+
+    expect(articlesReducer(state, action)).to.be.deep.equal(expectedState);
+  });
+
+  it('should handle DELETE_ARTICLE', () => {
+    const state = {
+      loading: false,
+      requested: true,
+      requestErrors: [],
+      items: [1, 4, 56],
+    };
+
+    const action = {
+      type: DELETE_ARTICLE,
+      id: 4,
+    };
+
+    const expectedState = {
+      items: [1, 56],
+      loading: false,
+      requested: true,
       requestErrors: [],
     };
 

@@ -10,12 +10,14 @@ import {
   addArticle,
   addArticleSucceed,
   updateArticle,
+  deleteArticle,
 } from '../../actions/articles';
 import { receiveEntities } from '../../actions/entities';
 import {
   REQUEST_ARTICLES,
   REQUEST_ARTICLES_SUCCESS,
   RECEIVE_ENTITIES,
+  DELETE_ARTICLE,
 } from '../../constants/actionTypes';
 import mockStore from '../utils/mockStore';
 import { push } from 'react-router-redux';
@@ -217,6 +219,40 @@ describe('actions/articles', () => {
     ];
 
     return store.dispatch(updateArticle(article.id, updateArticleData)).then(() => {
+      expect(store.getActions()).deep.equal(expectedActions);
+    });
+  });
+
+  it('should handle delete article action', () => {
+    const articleToDelete = 23;
+
+    const store = mockStore({
+      entities: {
+        articles: {
+          23: {
+            id: 23,
+            title: 'foo',
+          },
+        },
+      },
+      articles: {
+        loading: false,
+        requested: true,
+        requestErrors: [],
+        items: [23],
+      },
+    });
+
+    nock('http://localhost').delete('/api/articles/23').reply(204);
+
+    const expectedActions = [
+      {
+        type: DELETE_ARTICLE,
+        id: articleToDelete,
+      },
+    ];
+
+    return store.dispatch(deleteArticle(articleToDelete)).then(() => {
       expect(store.getActions()).deep.equal(expectedActions);
     });
   });
