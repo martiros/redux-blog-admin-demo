@@ -41,6 +41,20 @@ describe('components/ArticlesList', () => {
     expect(wrapper.find('ArticlesListItem')).to.have.length(defaultProps.articles.items.length);
   });
 
+  it('shows warning when articles list is empty', () => {
+    const props = {
+      ...defaultProps,
+      articles: {
+        ...defaultProps.articles,
+        items: [],
+      },
+    };
+    const wrapper = shallow(<ArticlesList {...props} />);
+
+    expect(wrapper.find('.alert-warning')).to.have.length(1);
+    expect(wrapper.find('ArticlesListItem')).to.have.length(0);
+  });
+
   it('renders spinner when articles list is loading', () => {
     const props = {
       ...defaultProps,

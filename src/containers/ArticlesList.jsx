@@ -31,6 +31,13 @@ class ArticlesList extends Component {
           </div>
 
           <div>
+            {!loading && !items.length && (
+              <div className="alert alert-warning text-center">
+                There are no articles! You can add new article&nbsp;
+                <Link to="/articles/create" >here</Link>.
+              </div>
+            )}
+
             {!loading && items.map(article => (
               <ArticlesListItem
                 key={article.id}
