@@ -5,6 +5,7 @@ import Spinner from './../components/widgets/Spinner';
 import FormError from './../components/widgets/FormError';
 import NotFound from './../components/NotFound';
 import { fetchArticlesIfNeeded, addArticle, updateArticle } from '../actions/articles';
+import Icon from '../components/widgets/Icon';
 
 const ARTICLE_FIELDS = ['title', 'content'];
 
@@ -56,7 +57,7 @@ class ArticleEditor extends Component {
             <h1 id="glyphicons" className="page-header">
               Articles
               <Link className="btn btn-default pull-right" to="/articles" >
-                <i className="glyphicon glyphicon-arrow-left" ></i> Back
+                <Icon icon="arrow-left" /> Back
               </Link>
             </h1>
           </div>

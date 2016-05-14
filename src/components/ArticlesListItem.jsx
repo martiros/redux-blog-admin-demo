@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import Icon from './widgets/Icon';
 
 class ArticlesListItem extends Component {
 
@@ -20,7 +21,7 @@ class ArticlesListItem extends Component {
       <li className="list-group-item" key={article.id} >
         <Link to={`/articles/${article.id}`} >{article.title}</Link>
         <a href="#" onClick={this.deleteArticle} className="pull-right" >
-          <i className="glyphicon glyphicon-remove" ></i>
+          <Icon icon="remove" />
         </a>
       </li>
     );

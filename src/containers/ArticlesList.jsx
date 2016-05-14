@@ -4,6 +4,7 @@ import { fetchArticlesIfNeeded, deleteArticle } from '../actions/articles';
 import { Link } from 'react-router';
 import Spinner from '../components/widgets/Spinner';
 import ArticlesListItem from '../components/ArticlesListItem';
+import Icon from '../components/widgets/Icon';
 
 class ArticlesList extends Component {
   componentWillMount() {
@@ -25,7 +26,7 @@ class ArticlesList extends Component {
             <h1 id="glyphicons" className="page-header">
               Articles
               <Link className="btn btn-primary pull-right" to="/articles/create" >
-                <i className="glyphicon glyphicon-plus" ></i> Add new article
+                <Icon icon="plus" /> Add new article
               </Link>
             </h1>
           </div>
