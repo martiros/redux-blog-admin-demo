@@ -2,7 +2,11 @@ import { RECEIVE_ENTITIES, DELETE_ARTICLE } from './../constants/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
 
-export default function entitiesReducer(state = {}, action) {
+const defaultState = {
+  articles: {},
+};
+
+export default function entitiesReducer(state = defaultState, action) {
   switch (action.type) {
     case RECEIVE_ENTITIES:
       return merge({}, state, action.entities);

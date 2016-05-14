@@ -6,7 +6,7 @@ describe('reducers/entities', () => {
   it('should return the initial state', () => {
     expect(
       entitiesReducer(undefined, {})
-    ).to.be.deep.equal({});
+    ).to.be.deep.equal({ articles: {} });
   });
 
   it('should handle RECEIVE_ENTITIES', () => {
