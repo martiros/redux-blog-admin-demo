@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { Link } from 'react-router';
 import Spinner from './../components/widgets/Spinner';
 import FormError from './../components/widgets/FormError';
 import NotFound from './../components/NotFound';
 import { fetchArticlesIfNeeded, addArticle, updateArticle } from '../actions/articles';
-import Icon from '../components/widgets/Icon';
+import Button from '../components/widgets/Button';
 
 const ARTICLE_FIELDS = ['title', 'content'];
 
@@ -56,9 +55,9 @@ class ArticleEditor extends Component {
           <div>
             <h1 id="glyphicons" className="page-header">
               Articles
-              <Link className="btn btn-default pull-right" to="/articles" >
-                <Icon icon="arrow-left" /> Back
-              </Link>
+              <Button to="/articles" icon="arrow-left" className="pull-right" >
+                Back
+              </Button>
             </h1>
           </div>
           <div>
