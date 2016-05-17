@@ -6,10 +6,20 @@ import rootReducer from '../reducers';
 
 export default function configureStore(initialState, browserHistory) {
   const routeMiddleware = routerMiddleware(browserHistory);
+
+  const middlewareList = [];
+  if (process.env.NODE_ENV !== 'production') {
+    middlewareList.push(require('redux-immutable-state-invariant')());
+  }
+
+  middlewareList.push(thunkMiddleware);
+  middlewareList.push(createLogger());
+  middlewareList.push(routeMiddleware);
+
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunkMiddleware, createLogger(), routeMiddleware)
+    applyMiddleware(...middlewareList)
   );
   return store;
 }
