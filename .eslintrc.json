@@ -10,6 +10,14 @@
     "jsx": true,
     "es6": true
   },
+  "parserOptions" : {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "forOf": true,
+      "es6": true
+    }
+  },
   "plugins": [
     "react"
   ]

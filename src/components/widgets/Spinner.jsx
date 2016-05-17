@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Home() {
+export default function Spinner() {
   return (
     <div>
-      <h2>Blog Admin Example</h2>
+      Loading...
     </div>
   );
 }
