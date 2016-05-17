@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import articlesReducer from './../../reducers/articles';
+import deepFreeze from 'deep-freeze';
 import {
   REQUEST_ARTICLES,
   REQUEST_ARTICLES_SUCCESS,
@@ -26,6 +27,7 @@ describe('reducers/articles', () => {
       requestErrors: [{ msg: 'Some error object' }],
       items: [1, 4, 56],
     };
+    deepFreeze(state);
 
     const action = {
       type: REQUEST_ARTICLES,
@@ -48,6 +50,7 @@ describe('reducers/articles', () => {
       requestErrors: [],
       items: [1, 4, 56],
     };
+    deepFreeze(state);
 
     const action = {
       type: REQUEST_ARTICLES_SUCCESS,
@@ -71,6 +74,7 @@ describe('reducers/articles', () => {
       requestErrors: [],
       items: [1, 4, 56],
     };
+    deepFreeze(state);
 
     const action = {
       type: CREATE_ARTICLE_SUCCESS,
@@ -93,6 +97,7 @@ describe('reducers/articles', () => {
       requestErrors: [],
       items: [1, 4, 56],
     };
+    deepFreeze(state);
 
     const action = {
       type: DELETE_ARTICLE,

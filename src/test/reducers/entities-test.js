@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import deepFreeze from 'deep-freeze';
 import entitiesReducer from './../../reducers/entities';
 import { RECEIVE_ENTITIES, DELETE_ARTICLE } from './../../constants/actionTypes';
 
@@ -23,6 +24,7 @@ describe('reducers/entities', () => {
         },
       },
     };
+    deepFreeze(state);
 
     const action = {
       type: RECEIVE_ENTITIES,
@@ -81,6 +83,7 @@ describe('reducers/entities', () => {
         },
       },
     };
+    deepFreeze(state);
 
     const action = {
       type: DELETE_ARTICLE,
