@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "5"
+sudo: false
+cache:
+  directories:
+    - node_modules
+install:
+  # Update Node.js modules
+  - "test  -d node_modules || npm install"
+  - "test ! -d node_modules || npm prune"
+  - "test ! -d node_modules || npm rebuild"
+
+  # Initialise database
+  - node_modules/.bin/sequelize db:migrate
+  - node_modules/.bin/sequelize db:seed:all
+script:
+  - "npm run test-api"
+  - "npm run test-front-end"
