@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchArticlesIfNeeded, deleteArticle } from '../actions/articles';
 import { Link } from 'react-router';
+import { fetchArticlesIfNeeded, deleteArticle } from '../actions/articles';
 import Spinner from '../components/widgets/Spinner';
 import ArticlesListItem from '../components/ArticlesListItem';
 import Button from '../components/widgets/Button';
@@ -76,7 +76,7 @@ function mapStateToProps(state) {
   const allArticles = state.entities.articles;
   const articles = {
     ...state.articles,
-    items: state.articles.items.map((articleId) => allArticles[articleId]),
+    items: state.articles.items.map(articleId => allArticles[articleId]),
   };
   return {
     articles,

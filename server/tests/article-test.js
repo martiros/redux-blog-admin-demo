@@ -1,15 +1,15 @@
 import supertest from 'supertest';
 import chai, { expect } from 'chai';
 import httpStatus from 'http-status';
-import responseAssertion from './helpers/responseAssertion';
 import Joi from 'joi';
 import faker from 'faker';
+import responseAssertion from './helpers/responseAssertion';
 import { Article } from '../models';
 
 chai.use(responseAssertion);
 
 function getRandomArticle() {
-  return Article.count().then((count) => Article.findOne({
+  return Article.count().then(count => Article.findOne({
     offset: Math.floor((Math.random() * count) + 0),
   }));
 }
@@ -17,7 +17,7 @@ function getRandomArticle() {
 function getNonExistentArticleId() {
   return Article.findOne({
     order: 'id DESC',
-  }).then((lastArticle) => lastArticle.get('id') + 1);
+  }).then(lastArticle => lastArticle.get('id') + 1);
 }
 
 describe('Article endpoints', () => {
@@ -35,6 +35,7 @@ describe('Article endpoints', () => {
   beforeEach(() => {
     delete require.cache[require.resolve('../bin/www')];
     server = require('../bin/www');
+
     request = supertest(server);
   });
 
@@ -93,7 +94,7 @@ describe('Article endpoints', () => {
   describe('PUT /api/articles/:id', () => {
     it('fails validation for invalid article data', (done) => {
       getRandomArticle()
-        .then(randomArticle => {
+        .then((randomArticle) => {
           request
             .put(`/api/articles/${randomArticle.get('id')}`)
             .send({
@@ -108,7 +109,7 @@ describe('Article endpoints', () => {
 
     it('updates article successfully', (done) => {
       getRandomArticle()
-        .then(randomArticle => {
+        .then((randomArticle) => {
           request
             .put(`/api/articles/${randomArticle.get('id')}`)
             .send({
@@ -123,7 +124,7 @@ describe('Article endpoints', () => {
 
     it('returns not found error for invalid article', (done) => {
       getNonExistentArticleId()
-        .then(invalidArticleId => {
+        .then((invalidArticleId) => {
           request
             .put(`/api/articles/${invalidArticleId}`)
             .send({
@@ -140,7 +141,7 @@ describe('Article endpoints', () => {
   describe('DELETE /api/articles/:id', () => {
     it('deletes article successfully', (done) => {
       getRandomArticle()
-        .then(randomArticle => {
+        .then((randomArticle) => {
           request
             .delete(`/api/articles/${randomArticle.get('id')}`)
             .expect(httpStatus.NO_CONTENT)
@@ -150,7 +151,7 @@ describe('Article endpoints', () => {
 
     it('returns not found error for invalid article', (done) => {
       getNonExistentArticleId()
-        .then(invalidArticleId => {
+        .then((invalidArticleId) => {
           request
             .delete(`/api/articles/${invalidArticleId}`)
             .expect('Content-type', /json/)

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import articlesReducer from './../../reducers/articles';
 import deepFreeze from 'deep-freeze';
+import articlesReducer from './../../reducers/articles';
 import {
   REQUEST_ARTICLES,
   REQUEST_ARTICLES_SUCCESS,

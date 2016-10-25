@@ -32,7 +32,7 @@ function validationFailed(validationResult) {
 router.get('/articles', (req, res, next) => {
   Article
     .findAll()
-    .then(articles => {
+    .then((articles) => {
       res.json({
         items: articles,
       });
@@ -51,7 +51,7 @@ router.post('/articles', (req, res, next) => {
 
   return Article
     .create(validationResult.value)
-    .then(article => {
+    .then((article) => {
       res.status(httpStatus.CREATED).json({
         item: article,
       });
@@ -70,7 +70,7 @@ router.put('/articles/:id', (req, res, next) => {
 
   return Article
     .findById(articleId)
-    .then(article => {
+    .then((article) => {
       if (!article) {
         return res.status(httpStatus.NOT_FOUND).json({
           status: 'NOT_FOUND',
@@ -94,7 +94,7 @@ router.delete('/articles/:id', (req, res, next) => {
 
   return Article
     .findById(articleId)
-    .then(article => {
+    .then((article) => {
       if (!article) {
         return res.status(httpStatus.NOT_FOUND).json({
           status: 'NOT_FOUND',

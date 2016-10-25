@@ -12,7 +12,7 @@ export default (chai) => {
     let item = null;
     let message = null;
     let errorSource = '';
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i += 1) {
       item = items[i];
       validationResult = Joi.validate(item, itemSchema);
       if (validationResult.error) {

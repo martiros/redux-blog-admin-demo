@@ -34,7 +34,7 @@ export default function articlesReducer(state = defaultState, action) {
     case DELETE_ARTICLE:
       return {
         ...state,
-        items: state.items.filter((articleId) => articleId !== action.id),
+        items: state.items.filter(articleId => articleId !== action.id),
       };
 
     case CREATE_ARTICLE_SUCCESS:

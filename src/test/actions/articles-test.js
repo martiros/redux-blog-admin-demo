@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import nock from 'nock';
 import sinon from 'sinon';
 import _ from 'lodash';
+import { push } from 'react-router-redux';
 import {
   requestArticles,
   requestArticlesSuccess,
@@ -20,7 +21,6 @@ import {
   DELETE_ARTICLE,
 } from '../../constants/actionTypes';
 import mockStore from '../utils/mockStore';
-import { push } from 'react-router-redux';
 
 describe('actions/articles', () => {
   let windowStub;

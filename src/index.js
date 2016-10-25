@@ -11,6 +11,7 @@ const store = configureStore({}, browserHistory);
 syncHistoryWithStore(browserHistory, store);
 
 const root = (appStore, appRoutes, appBrowserHistory) => (
+  // eslint-disable-next-line
   <div>
     <Provider store={appStore}>
       <Router history={appBrowserHistory}>

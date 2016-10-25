@@ -1,3 +1,6 @@
+import { normalize } from 'normalizr';
+import { UNPROCESSABLE_ENTITY } from 'http-status';
+import { push } from 'react-router-redux';
 import http from '../utils/http';
 import {
   REQUEST_ARTICLES,
@@ -5,11 +8,8 @@ import {
   CREATE_ARTICLE_SUCCESS,
   DELETE_ARTICLE,
 } from '../constants/actionTypes';
-import { normalize } from 'normalizr';
 import { receiveEntities } from './entities';
 import Schemas from '../schemas';
-import { UNPROCESSABLE_ENTITY } from 'http-status';
-import { push } from 'react-router-redux';
 
 function processValidationErrors(result, formData) {
   return Promise.reject(
@@ -77,7 +77,7 @@ export function fetchArticles() {
 
     return http
       .get('/api/articles')
-      .then(res => {
+      .then((res) => {
         const data = normalize(res.body.items, Schemas.ARTICLES_LIST);
         dispatch(receiveEntities(data.entities));
         dispatch(requestArticlesSuccess(data.result));
@@ -101,10 +101,10 @@ export function addArticleSucceed() {
 }
 
 export function addArticle(formData) {
-  return (dispatch) =>
+  return dispatch =>
     http
       .post('/api/articles', formData)
-      .then(result => {
+      .then((result) => {
         const data = normalize(result.body.item, Schemas.ARTICLE);
 
         dispatch(receiveEntities(data.entities));
@@ -114,14 +114,14 @@ export function addArticle(formData) {
         dispatch(push(`/articles/${data.result}`));
         window.scrollTo(0, 0);
       })
-      .catch((err) => handleRequestFail(err, formData));
+      .catch(err => handleRequestFail(err, formData));
 }
 
 export function updateArticle(id, formData) {
-  return (dispatch) =>
+  return dispatch =>
     http
       .put(`/api/articles/${id}`, formData)
-      .then(result => {
+      .then((result) => {
         const data = normalize(result.body.item, Schemas.ARTICLE);
         dispatch(receiveEntities(data.entities));
       })
