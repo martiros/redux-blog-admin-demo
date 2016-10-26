@@ -62,7 +62,7 @@ export default {
 
       if (data) req.send(data);
 
-      req.end((err, res) => err ? reject(err) : resolve(res));
+      req.end((err, res) => (err ? reject(err) : resolve(res)));
     });
   },
 };

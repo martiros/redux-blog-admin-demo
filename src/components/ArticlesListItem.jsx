@@ -20,9 +20,9 @@ class ArticlesListItem extends Component {
     return (
       <li className="list-group-item" key={article.id} >
         <Link to={`/articles/${article.id}`} >{article.title}</Link>
-        <a href="#" onClick={this.deleteArticle} className="pull-right" >
+        <button onClick={this.deleteArticle} className="pull-right" >
           <Icon icon="remove" />
-        </a>
+        </button>
       </li>
     );
   }

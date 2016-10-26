@@ -4,7 +4,7 @@ import classnames from 'classnames';
 function Icon({ icon }) {
   const className = classnames('glyphicon', `glyphicon-${icon}`);
   return (
-    <i className={className} ></i>
+    <i className={className} />
   );
 }
 

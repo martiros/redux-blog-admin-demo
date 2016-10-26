@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
-import Icon from './Icon';
 import { Link } from 'react-router';
+import Icon from './Icon';
 
 const btnTypes = [
   'primary',

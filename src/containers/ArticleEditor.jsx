@@ -81,19 +81,26 @@ class ArticleEditor extends Component {
                 }
 
                 <div className={`form-group${(title.touched && title.error ? ' has-error' : '')}`}>
-                  <label className="col-sm-2 control-label">Title</label>
+                  <label className="col-sm-2 control-label" htmlFor="article-title">Title</label>
                   <div className="col-sm-10">
-                    <input type="title" className="form-control" placeholder="Title" {...title} />
+                    <input
+                      id="article-title"
+                      type="title"
+                      className="form-control"
+                      placeholder="Title"
+                      {...title}
+                    />
                     <FormError field={title} />
                   </div>
                 </div>
 
-                <div
-                  className={`form-group${(content.touched && content.error ? ' has-error' : '')}`}
-                >
-                  <label className="col-sm-2 control-label">Content</label>
+                <div className={`form-group${(content.touched && content.error ? ' has-error' : '')}`} >
+                  <label className="col-sm-2 control-label" htmlFor="article-content">
+                    Content
+                  </label>
                   <div className="col-sm-10">
                     <textarea
+                      id="article-content"
                       className="form-control"
                       placeholder="Content"
                       {...content}
@@ -161,8 +168,8 @@ const AddArticle = reduxForm(
     validate,
   },
   null,
-  (dispatch) => ({
-    onSubmit: (formData) => dispatch(addArticle(formData)),
+  dispatch => ({
+    onSubmit: formData => dispatch(addArticle(formData)),
   })
 )(ArticleEditor);
 
@@ -219,7 +226,7 @@ const EditArticle = reduxForm(
     };
   },
   (dispatch, { params }) => ({
-    onSubmit: (formData) => dispatch(updateArticle(params.id, formData)),
+    onSubmit: formData => dispatch(updateArticle(params.id, formData)),
     fetchArticlesIfNeeded: () => dispatch(fetchArticlesIfNeeded()),
   })
 )(ArticleEditor);

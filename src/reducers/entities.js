@@ -1,6 +1,6 @@
-import { RECEIVE_ENTITIES, DELETE_ARTICLE } from './../constants/actionTypes';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
+import { RECEIVE_ENTITIES, DELETE_ARTICLE } from './../constants/actionTypes';
 
 const defaultState = {
   articles: {},

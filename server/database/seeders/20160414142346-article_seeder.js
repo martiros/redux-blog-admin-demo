@@ -6,7 +6,7 @@ module.exports = {
   up(queryInterface) {
     const articles = [];
     const now = new Date();
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i += 1) {
       const createdAt = faker.date.past();
       articles.push({
         title: faker.lorem.sentence(),
